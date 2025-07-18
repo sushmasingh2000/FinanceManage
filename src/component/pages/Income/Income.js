@@ -32,7 +32,7 @@ const Income = () => {
                     </header>
                     <div className="flex justify-end ">
                         <button
-                            className="bg-green-700 text-white m-5 px-4 py-2 rounded float-right"
+                            className="bg-green-700 text-white mx-5 mt-4 px-4 py-2 rounded float-right"
                             onClick={() => setModalOpen(true)}
                         >
                             + Add Income
