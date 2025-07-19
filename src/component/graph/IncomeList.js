@@ -6,14 +6,6 @@ import { domain, endpoint } from "../../utils/APIRoutes";
 import CustomToPagination from "../../Shared/Pagination";
 import moment from "moment";
 
-const incomeItems = [
-  { emoji: "👨‍💼", label: "Salary", date: "12th Feb 2025", amount: "+ $12000" },
-  { emoji: "🏦", label: "Interest from Savings", date: "13th Jan 2025", amount: "+ $9600" },
-  { emoji: "🛍️", label: "E-commerce Sales", date: "11th Jan 2025", amount: "+ $11900" },
-  { emoji: "🎨", label: "Graphic Design", date: "10th Jan 2025", amount: "+ $10500" },
-  { emoji: "📢", label: "Affiliate Marketing", date: "9th Jan 2025", amount: "+ $8000" },
-];
-
 const IncomeList = () => {
   const [page, setPage] = useState(1);
   const { data } = useQuery(

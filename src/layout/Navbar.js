@@ -69,6 +69,18 @@ const Navbar = () => {
             Expense
           </button>
 
+ <button
+            className={`flex items-center gap-3 px-4 py-3 rounded-md w-full transition
+              ${
+                isActive("/budget")
+                  ? "text-white bg-emerald-600 hover:bg-emerald-700"
+                  : "hover:bg-emerald-100 dark:hover:bg-emerald-800"
+              }`}
+            onClick={() => navigate("/budget")}
+          >
+            <FaCreditCard size={20} />
+            Budget
+          </button>
           <button
             className="flex items-center gap-3 px-4 py-3 rounded-md w-full hover:bg-emerald-100 dark:hover:bg-emerald-800 transition"
             onClick={() => navigate("/")}

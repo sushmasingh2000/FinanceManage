@@ -15,36 +15,8 @@ export const endpoint = {
   get_user_expense_graph: `${domain}/api/v1/graph-data`,
   get_dashboard: `${domain}/api/v1/dashboard-data`,
   get_dashboard_finance_data: `${domain}/api/v1/dashboard-finance-data`,
- 
-  
+  get_budget_data: `${domain}/api/v1/budget-list`,
+  add_budget_data: `${domain}/api/v1/set-budget`,
+  get_budget_data_amount: `${domain}/api/v1/get-profile`,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  wallet_api: `${domain}/api/v1/check-wallet-address-availability`,
-  package_list_api: `${domain}/api/v1/get-package-details`,
-  paying_dummy_api: `${domain}/api/v1/activation-dummy-request`,
-  paying_api: `${domain}/api/v1/activation-request`,
-  general_contact_address_api: `${domain}/api/v1/get-api-general-data`,
-  withdrawal_api: `${domain}/api/v1/withdrawal-req`,
-  withdrawal_history_api: `${domain}/api/v1/get-withdrawal-details`,
-  change_password_api: `${domain}/api/v1/change-password`,
-  user_dashboard_api: `${domain}/api/v1/user-dashboard-data`,
-  get_topup_api: `${domain}/api/v1/get-topup-details`,
-  topup_api: `${domain}/api/v1/admin-topup-id`,
-  market_api: `${domain}/api/v3/simple/price`,
-  team_data_api: `${domain}/api/v1/get-team-data`,
-  team_data_level_api: `${domain}/api/v1/get-team-data?`,
-  tree_data: `${domain}/api/v1/get-downline-team`,
 };

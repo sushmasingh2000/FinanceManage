@@ -5,6 +5,7 @@ import Dashboard from './component/Dashboard';
 import Income from './component/pages/Income/Income';
 import ExpensePage from './component/pages/Expenses/Expense';
 import { ThemeProvider } from './context/ThemeContext';
+import DailyBudget from './component/pages/DailyBudget/Daily';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/home" element={<Dashboard />} />
           <Route path="/income" element={<Income />} />
           <Route path="/expense" element={<ExpensePage />} />
+          <Route path="/budget" element={<DailyBudget />} />
         </Routes>
       </Router>
     </ThemeProvider>
