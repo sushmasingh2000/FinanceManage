@@ -18,7 +18,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 p-2 pt-5 flex flex-col justify-between h-screen text-gray-800 dark:text-gray-100">
+    <div className="w-64 bg-gray-50 dark:bg-gray-900 border-r h-full border-gray-200 dark:border-gray-800 p-2 pt-5 flex flex-col justify-between  text-gray-800 dark:text-gray-100">
       <div>
         <div className="flex flex-col items-center mb-5">
           <img

@@ -22,7 +22,7 @@ const Income = () => {
 
   return (
     <div className={theme === "dark" ? "dark" : ""}>
-      <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-[#0f172a]">
+      <div className="flex flex-col min-h-screen bg-gray-200  dark:bg-[#0f172a]">
         
         {/* Header */}
         <header className="bg-emerald-600 dark:bg-emerald-700 text-white text-2xl font-bold py-4 px-6 shadow-md tracking-wide flex justify-between items-center">
@@ -51,7 +51,8 @@ const Income = () => {
           )}
 
           {/* Main Content */}
-          <div className="flex-1 h-full overflow-y-auto text-gray-800 dark:text-gray-100">
+        <div className="flex-1 h-[calc(100vh-4rem)] overflow-y-auto example text-gray-800 dark:text-gray-100">
+
             {/* Top Bar */}
             <div className="flex justify-between items-center p-6">
               <h2 className="text-xl font-bold">Income</h2>
@@ -79,9 +80,7 @@ const Income = () => {
               {/* Header with download */}
               <div className="mt-6 flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Income Sources</h3>
-                <button className="flex items-center gap-2 bg-gray-100 dark:bg-slate-700 px-4 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-slate-600 text-sm">
-                  <FiDownload /> Download
-                </button>
+               
               </div>
 
               {/* List */}

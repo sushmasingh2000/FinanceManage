@@ -51,7 +51,7 @@ const Expense = () => {
           )}
 
           {/* Main Content */}
-          <div className="flex-1 h-full overflow-y-auto text-gray-800 dark:text-gray-100">
+          <div className="flex-1  h-[calc(100vh-4rem)] overflow-y-auto example text-gray-800 dark:text-gray-100">
             {/* Top Bar */}
             <div className="flex justify-between items-center p-6">
               <h2 className="text-xl font-bold">Expense</h2>
@@ -79,9 +79,7 @@ const Expense = () => {
               {/* Header with download */}
               <div className="mt-6 flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Expense Summary</h3>
-                <button className="flex items-center gap-2 bg-gray-100 dark:bg-slate-700 px-4 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-slate-600 text-sm">
-                  <FiDownload /> Download
-                </button>
+               
               </div>
 
               {/* List */}

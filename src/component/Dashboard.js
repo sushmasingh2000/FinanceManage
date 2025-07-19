@@ -11,12 +11,18 @@ import CalendarCard from "./graph/Calendar"; // <-- new import
 import { ThemeContext } from "../context/ThemeContext";
 import logo from "../images/logo_white.png";
 import { Menu, X } from "lucide-react";
+import { endpoint } from "../utils/APIRoutes";
+import toast from "react-hot-toast";
+import { apiConnectorGet } from "../utils/APIConnector";
+import { useQuery } from "react-query";
 
 const Dashboard = () => {
   const { theme } = useContext(ThemeContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+
+
 
   return (
     <div className={theme === "dark" ? "dark" : ""}>
@@ -57,7 +63,7 @@ const Dashboard = () => {
           )}
 
           {/* Main Content */}
-          <main className="flex-1 p-6 overflow-y-auto h-screen text-gray-800 dark:text-gray-100">
+          <main className="flex-1 p-6 overflow-y-auto example h-screen text-gray-800 dark:text-gray-100">
             
             {/* TopCards + CalendarCard side-by-side */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">

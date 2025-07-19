@@ -38,11 +38,11 @@ const Login = () => {
           "Access-Control-Allow-Origin": "*",
         },
       });
-      toast(response?.data?.message);
+      toast(response?.data?.msg);
       setLoading(false);
-      if (response?.data?.message === "Login Successfully") {
-        localStorage.setItem("logindataen", response?.data?.result?.[0]?.token);
-        navigate("/dashboard");
+      if (response?.data?.msg === "Login successfully") {
+        localStorage.setItem("logindataen", response?.data?.token);
+        navigate("/home");
         window.location.reload();
       }
     } catch (error) {

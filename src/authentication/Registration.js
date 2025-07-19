@@ -43,12 +43,12 @@ const Register = () => {
           "Access-Control-Allow-Origin": "*",
         },
       });
-      toast(response?.data?.message);
+      toast(response?.data?.msg);
       setLoading(false);
-      if (response?.data?.message === "Registration Successfully") {
+      if (response?.data?.msg === "Registration Successfully") {
         fk.handleReset();
-        localStorage.setItem("logindataen", response?.data?.result?.[0]?.token);
-        navigate("/dashboard");
+        localStorage.setItem("logindataen", response?.data?.token);
+        navigate("/home");
         window.location.reload();
       }
     } catch (e) {

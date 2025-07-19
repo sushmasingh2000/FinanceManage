@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery } from "react-query";
 import {
   LineChart,
   Line,
@@ -9,23 +10,12 @@ import {
   ResponsiveContainer,
   Area,
 } from "recharts";
+import { apiConnectorGet } from "../../../utils/APIConnector";
+import { endpoint } from "../../../utils/APIRoutes";
+import moment from "moment";
 
-const data = [
-  { date: "2nd Jan", amount: 500, label: "Groceries" },
-  { date: "3rd Jan", amount: 200 },
-  { date: "4th Jan", amount: 100 },
-  { date: "5th Jan", amount: 250, label: "Groceries" },
-  { date: "6th Jan", amount: 50 },
-  { date: "7th Jan", amount: 400 },
-  { date: "9th Jan", amount: 300 },
-  { date: "10th Jan", amount: 700 },
-  { date: "11th Jan", amount: 800 },
-  { date: "12th Jan", amount: 650 },
-  { date: "14th Jan", amount: 200 },
-  { date: "10th Feb", amount: 500 },
-  { date: "11th Feb", amount: 250 },
-  { date: "17th Feb", amount: 400 },
-];
+const ExpenseOverview = () => {
+
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
@@ -33,14 +23,36 @@ const CustomTooltip = ({ active, payload }) => {
     return (
       <div className="bg-white border shadow px-4 py-2 rounded text-sm text-gray-700">
         <p className="font-semibold">{label || "Expense"}</p>
-        <p>Amount: ${amount}</p>
+        <p>Amount: ₹{amount
+          
+          }</p>
       </div>
     );
   }
   return null;
 };
 
-const ExpenseOverview = () => {
+   const { data: expense } = useQuery(
+      ["get_expense"],
+          () => apiConnectorGet(`${endpoint?.get_user_income_graph}?income_type=Dr`),
+      {
+        keepPreviousData: true,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+        onError: (err) => console.error("Error fetching expense data:", err),
+      }
+    );
+  
+    const allData = expense?.data?.response || [];
+    const data =
+    allData?.map((i)=>{
+      return {
+        date:moment(i?.ldg_createdAt)?.format("DD-MM-YYYY"),
+        amount:i?.total_dr
+      }
+    })
+
   return (
     <div className="bg-white p-6 rounded shadow w-full">
       <div className="flex justify-between items-center mb-4">

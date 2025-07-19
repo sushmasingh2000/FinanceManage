@@ -5,24 +5,22 @@ import { frontend } from "./APIRoutes";
 // import toast from "react-hot-toast";
 
 export const apiConnectorGet = async (endpoint, params) => {
+  console.log("Params being sent:", params);
   try {
-    const response = await axios?.get(
-      endpoint,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("logindataen")}`,
-        },
+    const response = await axios.get(endpoint, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("logindataen")}`,
       },
-      {
-        params: params,
-      }
-    );
+      params: params, // ✅ Move this inside same config object
+    });
+
     if (response?.data?.msg === "Invalid Token.") {
       toast("Login in another device ", { id: 1 });
       localStorage.clear();
       window.location.href = `${frontend}`;
       return;
     }
+
     return response;
   } catch (e) {
     return {
@@ -30,6 +28,7 @@ export const apiConnectorGet = async (endpoint, params) => {
     };
   }
 };
+
 export const apiConnectorPost = async (endpoint, reqBody) => {
   try {
     const response = await axios?.post(

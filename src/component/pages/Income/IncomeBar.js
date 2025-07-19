@@ -8,40 +8,64 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { useQuery } from "react-query";
+import { apiConnectorGet } from "../../../utils/APIConnector";
+import { endpoint } from "../../../utils/APIRoutes";
+import dayjs from "dayjs";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-const data = {
-  labels: [
-    "1st Jan", "4th Jan", "6th Jan", "7th Jan", "8th Jan", "9th Jan",
-    "10th Jan", "11th Jan", "13th Jan", "12th Feb", "19th Feb"
-  ],
-  datasets: [
-    {
-      label: "Income",
-      data: [5000, 9200, 10500, 9200, 1500, 9200, 14000, 11900, 8000, 12000, 9500],
-      backgroundColor: "#15803d",
-      borderRadius: 6,
-    },
-  ],
-};
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false, // <-- important to allow height control
-  plugins: {
-    legend: { display: false },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
-};
-
 const IncomeBarChart = () => {
+  const { data: income } = useQuery(
+    ["get_income"],
+    () => apiConnectorGet(endpoint?.get_user_income_graph),
+    {
+      keepPreviousData: true,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      onError: (err) => console.error("Error fetching income data:", err),
+    }
+  );
+
+  const allData = income?.data?.response || [];
+
+  // Format labels and values
+  const labels = allData.map(item =>
+    dayjs(item.ldg_createdAt).format("MMM D, HH:mm")
+  );
+
+  const values = allData.map(item =>
+    parseFloat(item.total_cr)
+  );
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Income",
+        data: values,
+        backgroundColor: "#15803d",
+        borderRadius: 6,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
   return (
-    <div className="bg-white p-6 rounded shadow w-full" style={{ height: "300px", width: "100%" }}>
+    <div className="bg-white dark:bg-slate-800 p-6 rounded shadow w-full" style={{ height: "300px", width: "100%" }}>
       <h3 className="text-lg font-semibold mb-4">Income Overview</h3>
       <Bar data={data} options={options} />
     </div>
