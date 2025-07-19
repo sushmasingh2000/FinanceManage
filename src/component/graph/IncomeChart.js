@@ -61,7 +61,7 @@ const IncomeChart = () => {
   const totalIncome = data.datasets[0].data.reduce((acc, curr) => acc + curr, 0);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md mx-auto">
+    <div className="bg-white text-black p-6 rounded-lg shadow-md w-full max-w-md mx-auto">
       <h3 className="font-semibold text-lg mb-4">Last 60 Days Income</h3>
       <Pie data={data} options={options} />
       <div className="text-center font-bold text-xl mt-4">

@@ -10,10 +10,10 @@ const data = [
 
 const Transactions = () => {
   return (
-    <div className="bg-white p-6 rounded shadow-xl">
+    <div className="bg-white text-black p-6 rounded shadow-xl">
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-semibold text-lg">Recent Transactions</h3>
-        <button className="text-sm text-gray-500 hover:underline">See All ➔</button>
+        <button className="text-sm text-purple-600 font-medium hover:underline flex items-center gap-1">See All ➔</button>
       </div>
       <ul className="space-y-4">
         {data.map((item, idx) => (

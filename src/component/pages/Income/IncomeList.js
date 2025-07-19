@@ -20,13 +20,13 @@ const IncomeList = () => {
       {incomeData.map((item, idx) => (
         <div
           key={idx}
-          className="bg-white p-4 rounded-lg shadow flex justify-between items-center"
+          className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow flex justify-between items-center transition-colors duration-300"
         >
           <div className="flex gap-3 items-center">
             <span className="text-2xl">{item.icon}</span>
             <div>
-              <p className="font-medium">{item.label}</p>
-              <p className="text-sm text-gray-400">{item.date}</p>
+              <p className="font-medium text-gray-800 dark:text-gray-100">{item.label}</p>
+              <p className="text-sm text-gray-400 dark:text-gray-400">{item.date}</p>
             </div>
           </div>
           <div className="text-green-500 font-semibold flex items-center gap-2">

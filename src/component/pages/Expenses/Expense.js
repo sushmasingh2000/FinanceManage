@@ -1,70 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FiDownload } from "react-icons/fi";
+import ExpenseBarChart from "./Overview";
+import ExpenseList from "./ExpensesList";
 import Navbar from "../../../layout/Navbar";
 import AddExpense from "./AddExpenses";
-import ExpenseOverview from "./Overview";
-import AllExpenses from "./ExpensesList";
-
+import { Menu, X } from "lucide-react";
+import { ThemeContext } from "../../../context/ThemeContext";
+import logo from "../../../images/logo_white.png";
 
 const Expense = () => {
-   const [showModal, setShowModal] = useState(false);
+  const { theme } = useContext(ThemeContext);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [expenses, setExpenses] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const handleAddExpense = (data) => {
-    console.log("Added Expense:", data);
-    // Here you can POST to backend or update state
+  const handleAddExpense = (expense) => {
+    setExpenses([...expenses, expense]);
   };
-    return (
-        <>
-            <header className="bg-green-700 text-white text-2xl font-bold py-4 px-6 shadow-md">
-                Finance Management
-            </header>
-            <div className="flex min-h-screen">
-                {/* Sidebar */}
-                <div className="w-64 h-screen sticky top-0 left-0 z-10">
-                    <Navbar />
-                </div>
 
-                {/* Main Content */}
-                <div className="flex-1 h-screen overflow-y-auto example bg-gray-50 flex flex-col">
-                    {/* Top Header */}
-                    <header className="bg-white text-xl font-bold py-4 px-6 shadow">
-                        Expense
-                    </header>
-                    <div className="flex justify-end ">
-                        <button
-                            className="bg-green-700 text-white mt-4 mx-5 px-4 py-2 rounded float-right"
-                            onClick={() => setShowModal(true)}
-                        >
-                            + Add Expense
-                        </button>
-                    </div>
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
+  return (
+    <div className={theme === "dark" ? "dark" : ""}>
+      <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-[#0f172a]">
 
-                    <AddExpense
-                        isOpen={showModal}
-                        onClose={() => setShowModal(false)}
-                        onAdd={handleAddExpense}
-                    />
+        {/* Header */}
+        <header className="bg-red-600 dark:bg-red-700 text-white text-2xl font-bold py-4 px-6 shadow-md tracking-wide flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="Xpensify Logo" className="h-12 w-auto max-w-[200px] rounded-md shadow-md" />
+            <span className="text-white text-2xl font-semibold tracking-tight">Xpensify Expense</span>
+          </div>
 
-                    <main className="p-6 space-y-6 ">
-                        {/* Income Chart */}
-                        <div className="bg-white p-6  rounded-lg shadow-md">
-                            <ExpenseOverview />
-                        </div>
+          {/* Hamburger Button */}
+          <button className="md:hidden text-white" onClick={toggleSidebar}>
+            {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </header>
 
-                        {/* Income Sources Header + Download */}
-                        <div className="flex justify-between items-center">
-                            <h3 className="text-lg font-semibold">Expense Sources</h3>
-                            <button className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-md hover:bg-gray-200 text-sm">
-                                <FiDownload /> Download
-                            </button>
-                        </div>
+        <div className="flex flex-1">
+          {/* Desktop Sidebar */}
+          <div className="hidden md:flex">
+            <Navbar />
+          </div>
 
-                        <AllExpenses />
-                    </main>
-                </div>
-            </div></>
-    );
+          {/* Mobile Sidebar */}
+          {isSidebarOpen && (
+            <div className="fixed z-50 md:hidden bg-red-700 text-white w-64 h-full shadow-lg">
+              <Navbar />
+            </div>
+          )}
+
+          {/* Main Content */}
+          <div className="flex-1 h-full overflow-y-auto text-gray-800 dark:text-gray-100">
+            {/* Top Bar */}
+            <div className="flex justify-between items-center p-6">
+              <h2 className="text-xl font-bold">Expense</h2>
+              <button
+                className="bg-red-600 dark:bg-red-700 text-white px-4 py-2 rounded shadow hover:bg-red-700"
+                onClick={() => setModalOpen(true)}
+              >
+                + Add Expense
+              </button>
+            </div>
+
+            {/* Modal */}
+            <AddExpense
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
+              onAddExpense={handleAddExpense}
+            />
+
+            {/* Chart */}
+            <div className="px-6 pb-6">
+              <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
+                <ExpenseBarChart />
+              </div>
+
+              {/* Header with download */}
+              <div className="mt-6 flex justify-between items-center">
+                <h3 className="text-lg font-semibold">Expense Summary</h3>
+                <button className="flex items-center gap-2 bg-gray-100 dark:bg-slate-700 px-4 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-slate-600 text-sm">
+                  <FiDownload /> Download
+                </button>
+              </div>
+
+              {/* List */}
+              <ExpenseList />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Expense;

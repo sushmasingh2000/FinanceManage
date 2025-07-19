@@ -1,17 +1,26 @@
-import React from "react";
-import { FaTachometerAlt, FaMoneyBillWave, FaCreditCard, FaSignOutAlt } from "react-icons/fa";
+import React, { useContext } from "react";
+import {
+  FaTachometerAlt,
+  FaMoneyBillWave,
+  FaCreditCard,
+  FaSignOutAlt,
+  FaMoon,
+  FaSun,
+} from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="w-64 bg-white border-r p-2 pt-5 flex flex-col justify-between h-screen">
-      <div className="">
-        <div className="flex flex-col items-center mb-5 ">
+    <div className="w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 p-2 pt-5 flex flex-col justify-between h-screen text-gray-800 dark:text-gray-100">
+      <div>
+        <div className="flex flex-col items-center mb-5">
           <img
             src="https://i.pravatar.cc/100?img=5"
             alt="Avatar"
@@ -20,13 +29,13 @@ const Navbar = () => {
           <h2 className="mt-4 font-semibold text-lg">Demo User</h2>
         </div>
 
-        <nav className="space-y-4 text-gray-700">
+        <nav className="space-y-4">
           <button
             className={`flex items-center gap-3 font-semibold px-4 py-3 rounded-md w-full transition
               ${
                 isActive("/home")
-                  ? "text-white bg-green-600 hover:bg-green-700"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "text-white bg-emerald-600 hover:bg-emerald-700"
+                  : "hover:bg-emerald-100 dark:hover:bg-emerald-800"
               }`}
             onClick={() => navigate("/home")}
           >
@@ -38,8 +47,8 @@ const Navbar = () => {
             className={`flex items-center gap-3 px-4 py-3 rounded-md w-full transition
               ${
                 isActive("/income")
-                  ? "text-white bg-green-600 hover:bg-green-700"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "text-white bg-emerald-600 hover:bg-emerald-700"
+                  : "hover:bg-emerald-100 dark:hover:bg-emerald-800"
               }`}
             onClick={() => navigate("/income")}
           >
@@ -51,8 +60,8 @@ const Navbar = () => {
             className={`flex items-center gap-3 px-4 py-3 rounded-md w-full transition
               ${
                 isActive("/expense")
-                  ? "text-white bg-green-600 hover:bg-green-700"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "text-white bg-emerald-600 hover:bg-emerald-700"
+                  : "hover:bg-emerald-100 dark:hover:bg-emerald-800"
               }`}
             onClick={() => navigate("/expense")}
           >
@@ -61,10 +70,20 @@ const Navbar = () => {
           </button>
 
           <button
-            className="flex items-center gap-3 px-4 py-3 rounded-md w-full hover:bg-gray-100 transition"
-         onClick={()=>navigate('/')} >
+            className="flex items-center gap-3 px-4 py-3 rounded-md w-full hover:bg-emerald-100 dark:hover:bg-emerald-800 transition"
+            onClick={() => navigate("/")}
+          >
             <FaSignOutAlt size={20} />
             Logout
+          </button>
+
+          {/* Toggle Theme Button */}
+          <button
+            className="flex items-center gap-3 px-4 py-3 rounded-md w-full hover:bg-emerald-100 dark:hover:bg-emerald-800 transition"
+            onClick={toggleTheme}
+          >
+            {theme === "dark" ? <FaSun size={20} /> : <FaMoon size={20} />}
+            {theme === "dark" ? "Light Mode" : "Dark Mode"}
           </button>
         </nav>
       </div>

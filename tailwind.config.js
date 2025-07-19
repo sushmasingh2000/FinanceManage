@@ -3,11 +3,9 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  darkMode: "class", // Enable dark mode via class
   theme: {
     extend: {},
   },
   plugins: [],
-}
-// sumit1232@gmail.com
-// sumit@123
-
+};

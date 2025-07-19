@@ -18,7 +18,7 @@ const data = {
     {
       label: "Amount",
       data: [430, 670, 200, 600],
-      backgroundColor: "#15803d",
+      backgroundColor: "#ff0000",
       borderRadius: 5,
     },
   ],
@@ -40,7 +40,7 @@ const options = {
 
 const ExpenseChart = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white text-black p-6 rounded-lg shadow-md">
       <h3 className="font-semibold text-lg mb-4">Last 30 Days Expenses</h3>
       <Bar data={data} options={options} />
     </div>

@@ -19,3 +19,19 @@ code {
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
 }
+/* index.css */
+
+:root {
+  --rbc-selected-day-bg: #10b981; /* tailwind emerald-500 */
+}
+.react-calendar {
+  background: transparent;
+  height: 270px;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #9ca3af; /* Gray-400 */
+}
+.dark .react-calendar {
+  background: #1e293b; /* slate-800 */
+  color: #fff;
+}

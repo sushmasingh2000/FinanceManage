@@ -3,30 +3,22 @@ import Login from './authentication/Login';
 import Register from './authentication/Registration';
 import Dashboard from './component/Dashboard';
 import Income from './component/pages/Income/Income';
-import ExpenseOverview from './component/pages/Expenses/Overview';
 import ExpensePage from './component/pages/Expenses/Expense';
-
-function AppRoutes() {
-
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Dashboard />} />
-        <Route path="/income" element={<Income />} />
-        <Route path="/expense" element={<ExpensePage />} />
-       
-      </Routes>
-    </>
-  );
-}
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
-    <Router>
-      <AppRoutes />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Dashboard />} />
+          <Route path="/income" element={<Income />} />
+          <Route path="/expense" element={<ExpensePage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

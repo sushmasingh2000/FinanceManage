@@ -2,12 +2,59 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useFormik } from "formik";
+import axios from "axios";
+import { endpoint } from "../utils/APIRoutes";
+import toast from "react-hot-toast";
+import Loader from "../Shared/Loader";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+ const initialValues = {
+    username: "",
+    password: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      const reqBody = {
+        username: values.username,
+        password: values.password,
+      };
+      loginFn(reqBody);
+    },
+  });
+
+  const loginFn = async (reqBody) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(endpoint?.login_api, reqBody, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      toast(response?.data?.message);
+      setLoading(false);
+      if (response?.data?.message === "Login Successfully") {
+        localStorage.setItem("logindataen", response?.data?.result?.[0]?.token);
+        navigate("/dashboard");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error during login.");
+      setLoading(false);
+    }
+  };
 
   return (
+   <>
+    <Loader isLoading={loading} />
     <div className="flex min-h-screen bg-green-200 items-center justify-center">
       <div className="w-full max-w-md bg-white border border-gray-300 rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold mb-2 text-center">Welcome Back</h2>
@@ -15,14 +62,22 @@ const Login = () => {
 
         <div className="space-y-4">
           <input
-            type="email"
-            placeholder="john@example.com"
+            placeholder="Username"
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
             className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Min 8 Characters"
+                placeholder="Password"
+                  id="password"
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
               className="w-full p-3 border rounded-md pr-10 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <button
@@ -35,7 +90,7 @@ const Login = () => {
             </button>
           </div>
           <button className="w-full py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-           onClick={() => navigate("/home")}>
+           onClick={formik.handleSubmit}>
             LOGIN
           </button>
           <p className="text-sm text-center text-gray-600">
@@ -48,6 +103,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 
